@@ -286,6 +286,17 @@
   .project-card .stack-line{font-size:0.86rem; color:var(--ink-soft); margin-top:-6px;}
   .project-card .stack-line b{color:var(--ink); font-weight:500;}
   .project-card .tag-row{margin-top:2px;}
+  .project-card .p-demo{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:0.88rem;
+    text-decoration:none;
+    color:var(--accent);
+    border-top:1px solid var(--line);
+    padding-top:16px;
+    margin-top:6px;
+    transition:gap 0.15s ease;
+  }
+  .project-card .p-demo:hover, .project-card .p-demo:focus-visible{gap:10px;}
 
   /* ---------- Education ---------- */
   .edu-item{
@@ -520,7 +531,7 @@
       </div>
 
       <div class="tl-item reveal">
-        <span class="period mono">May 2022 —<br>Sep 2023<br></span>
+        <span class="period mono">May 2022 —<br>Sep 2023</span>
         <div>
           <div class="tl-role">
             <h3>Web Developer</h3>
@@ -556,6 +567,7 @@
         <div class="tag-row">
           <span class="tag">Angular</span><span class="tag">RxJS</span><span class="tag">.NET Web API</span><span class="tag">SQL Server</span>
         </div>
+        <a href="https://bespoke-selkie-5dc14e.netlify.app/" class="p-demo" target="_blank" rel="noopener">View demo <span aria-hidden="true">→</span></a>
       </div>
       <div class="project-card reveal">
         <span class="p-num">02</span>
@@ -566,6 +578,51 @@
         <div class="tag-row">
           <span class="tag">Angular</span><span class="tag">NgRx</span><span class="tag">MediatR</span><span class="tag">SQL Server</span>
         </div>
+        <a href="https://deft-cranachan-fbabc4.netlify.app/" class="p-demo" target="_blank" rel="noopener">View demo <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="project-card reveal">
+        <span class="p-num">03</span>
+        <h3>Enterprise HR &amp; Automated Payroll Management System</h3>
+        <p>A workforce management platform that handles employee records, attendance, leave, timesheets, overtime, payroll calculations, approvals, and automated payslip generation with role-based access for employees, managers, and administrators.</p>
+        <p class="stack-line"><b>Frontend:</b> Angular, Angular Material, NgRx</p>
+        <p class="stack-line"><b>Backend:</b> .NET Web API, MediatR, Hangfire · <b>DB:</b> SQL Server, EF Core</p>
+        <div class="tag-row">
+          <span class="tag">Angular</span><span class="tag">NgRx</span><span class="tag">MediatR</span><span class="tag">Hangfire</span><span class="tag">SQL Server</span>
+        </div>
+        <a href="#" class="p-demo" target="_blank" rel="noopener">View demo <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="project-card reveal">
+        <span class="p-num">04</span>
+        <h3>Multi-Tenant SaaS CRM &amp; Sales Management Platform</h3>
+        <p>A subscription-based CRM that lets businesses manage customers, leads, sales pipelines, tasks, and activities while completely isolating data between tenants and enforcing subscription-based feature limits.</p>
+        <p class="stack-line"><b>Frontend:</b> Angular, Angular Material, NgRx</p>
+        <p class="stack-line"><b>Backend:</b> .NET Web API, JWT, Redis, MediatR · <b>DB:</b> SQL Server, EF Core</p>
+        <div class="tag-row">
+          <span class="tag">Angular</span><span class="tag">NgRx</span><span class="tag">JWT</span><span class="tag">Redis</span><span class="tag">SQL Server</span>
+        </div>
+        <a href="#" class="p-demo" target="_blank" rel="noopener">View demo <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="project-card reveal">
+        <span class="p-num">05</span>
+        <h3>Real-Time Logistics &amp; Delivery Management Platform</h3>
+        <p>A logistics system that manages orders from warehouse dispatch to final delivery, tracks drivers and delivery statuses in real time, and gives administrators live operational dashboards with automated customer notifications.</p>
+        <p class="stack-line"><b>Frontend:</b> Angular, Angular Material, NgRx, SignalR</p>
+        <p class="stack-line"><b>Backend:</b> .NET Web API, Kafka, Background Services, SignalR · <b>DB:</b> SQL Server, EF Core, Redis</p>
+        <div class="tag-row">
+          <span class="tag">Angular</span><span class="tag">SignalR</span><span class="tag">Kafka</span><span class="tag">SQL Server</span><span class="tag">Redis</span>
+        </div>
+        <a href="#" class="p-demo" target="_blank" rel="noopener">View demo <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="project-card reveal">
+        <span class="p-num">06</span>
+        <h3>Digital Banking &amp; Double-Entry Wallet System</h3>
+        <p>A financial platform that manages digital wallets, fund transfers, deposits, withdrawals, transaction limits, and beneficiaries through a double-entry ledger while maintaining transactional consistency and a complete audit history.</p>
+        <p class="stack-line"><b>Frontend:</b> Angular, Angular Material, NgRx</p>
+        <p class="stack-line"><b>Backend:</b> .NET Web API, JWT, MediatR, Redis · <b>DB:</b> SQL Server, EF Core</p>
+        <div class="tag-row">
+          <span class="tag">Angular</span><span class="tag">JWT</span><span class="tag">MediatR</span><span class="tag">Redis</span><span class="tag">SQL Server</span>
+        </div>
+        <a href="#" class="p-demo" target="_blank" rel="noopener">View demo <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
