@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karl Louie Tuazon — .NET Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #12172B;
+    --ink-soft: #4A5169;
+    --line: #DADDE3;
+    --accent: #2C5AA0;
+    --accent-soft: #E7EEF7;
+    --gold: #B8863F;
+    --radius: 3px;
+    --maxw: 1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    font-weight:600;
+    line-height:1.15;
+    margin:0;
+    color:var(--ink);
+  }
+
+  a{color:inherit;}
+  p{margin:0;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,245,247,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid transparent;
+    box-shadow:0 1px 0 var(--bg);
+    transition:border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  nav.is-scrolled{
+    border-bottom-color:var(--line);
+    box-shadow:0 4px 14px rgba(18,23,43,0.05);
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:-0.01em;
+    text-decoration:none;
+  }
+  .brand span{color:var(--accent);}
+  .nav-links{display:flex; gap:32px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    text-decoration:none;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    padding:6px 2px;
+    border-bottom:1px solid transparent;
+    transition:color 0.15s ease, border-color 0.15s ease;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--ink); border-color:var(--accent);}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:96px 0 104px;}
+  .hero .wrap{
+    display:block;
+  }
+  @keyframes fadeRise{
+    from{opacity:0; transform:translateY(12px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    color:var(--accent);
+    margin-bottom:18px;
+    opacity:0;
+    animation:fadeRise 0.6s ease-out 0.05s forwards;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4vw, 3rem);
+    letter-spacing:-0.02em;
+    margin-bottom:20px;
+    opacity:0;
+    animation:fadeRise 0.6s ease-out 0.15s forwards;
+  }
+  .hero p.lede{
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:48ch;
+    margin-bottom:32px;
+    opacity:0;
+    animation:fadeRise 0.6s ease-out 0.25s forwards;
+  }
+  .hero .cta-row{
+    display:flex; gap:14px; flex-wrap:wrap;
+    opacity:0;
+    animation:fadeRise 0.6s ease-out 0.35s forwards;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 20px;
+    border-radius:var(--radius);
+    font-size:0.92rem;
+    font-weight:500;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{background:var(--accent);}
+  .btn-ghost{border-color:var(--line); background:transparent; color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:80px 0;}
+  section:not(.hero) + section{border-top:1px solid var(--line);}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:20px; margin-bottom:40px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--accent);
+    font-size:0.85rem;
+  }
+  .section-head h2{font-size:1.6rem; letter-spacing:-0.01em;}
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:56px;
+  }
+  .about-grid p{color:var(--ink-soft); margin-bottom:16px; max-width:60ch;}
+  .fact-list{
+    list-style:none; margin:0; padding:0;
+    border-top:1px solid var(--line);
+  }
+  .fact-list li{
+    display:flex; justify-content:space-between; gap:12px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:0.92rem;
+  }
+  .fact-list .k{color:var(--ink-soft);}
+  .fact-list .v{font-weight:500; text-align:right;}
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .skill-col{background:var(--surface); padding:24px;}
+  .skill-col h3{
+    font-size:0.78rem;
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--ink-soft);
+    font-weight:500;
+    margin-bottom:16px;
+  }
+  .skill-col ul{list-style:none; margin:0; padding:0;}
+  .skill-col li{
+    font-size:0.94rem;
+    border-bottom:1px dashed var(--line);
+  }
+  .skill-col li:last-child{border-bottom:none;}
+  .skill-col li a{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:8px;
+    padding:6px 0;
+    text-decoration:none;
+    color:var(--ink);
+    transition:color 0.15s ease;
+  }
+  .skill-col li a:hover, .skill-col li a:focus-visible{color:var(--accent);}
+  .skill-col li a::after{
+    content:"↗";
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    opacity:0;
+    transform:translate(-2px, 2px);
+    transition:opacity 0.15s ease, transform 0.15s ease;
+  }
+  .skill-col li a:hover::after, .skill-col li a:focus-visible::after{
+    opacity:1;
+    transform:translate(0, 0);
+  }
+
+  /* ---------- Experience ---------- */
+  .timeline{border-top:1px solid var(--line);}
+  .tl-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:32px;
+    padding:32px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .tl-item .period{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    padding-top:2px;
+    line-height:1.5;
+  }
+  .tl-role{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;}
+  .tl-role h3{font-size:1.08rem;}
+  .tl-role .co{color:var(--accent); font-weight:500; font-size:0.98rem;}
+  .tl-item ul.duties{color:var(--ink-soft); max-width:64ch; margin:0 0 12px; padding-left:18px;}
+  .tl-item ul.duties li{margin-bottom:4px; font-size:0.95rem;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    color:var(--ink-soft);
+    background:var(--accent-soft);
+    padding:4px 9px;
+    border-radius:var(--radius);
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:24px;
+  }
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .project-card .p-num{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--gold);}
+  .project-card h3{font-size:1.15rem;}
+  .project-card p{color:var(--ink-soft); font-size:0.95rem; flex-grow:1;}
+  .project-card .stack-line{font-size:0.86rem; color:var(--ink-soft); margin-top:-6px;}
+  .project-card .stack-line b{color:var(--ink); font-weight:500;}
+  .project-card .tag-row{margin-top:2px;}
+
+  /* ---------- Education ---------- */
+  .edu-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:32px;
+    padding:28px 0;
+    border-top:1px solid var(--line);
+  }
+  .edu-item .period{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--ink-soft);}
+  .edu-item h3{font-size:1.05rem; margin-bottom:4px;}
+  .edu-item p{color:var(--ink-soft); font-size:0.94rem;}
+
+  /* ---------- Contact ---------- */
+  .contact-inner{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .contact-inner h2{font-size:1.9rem; margin-bottom:18px; max-width:16ch;}
+  .contact-inner p{color:var(--ink-soft); max-width:48ch; margin-bottom:28px;}
+  .contact-list{list-style:none; margin:0; padding:0;}
+  .contact-list li{border-top:1px solid var(--line);}
+  .contact-list li:last-child{border-bottom:1px solid var(--line);}
+  .contact-list a{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 4px;
+    text-decoration:none;
+    font-size:0.98rem;
+    color:var(--ink);
+    transition:color 0.15s ease;
+  }
+  .contact-list a:hover{color:var(--accent);}
+  .contact-list .arrow{font-family:'IBM Plex Mono', monospace; color:var(--ink-soft);}
+
+  footer{
+    padding:28px 0 40px;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px){
+    .skills-grid{grid-template-columns:repeat(3, 1fr);}
+  }
+  @media (max-width: 860px){
+    .about-grid{grid-template-columns:1fr; gap:32px;}
+    .skills-grid{grid-template-columns:repeat(2, 1fr);}
+    .project-grid{grid-template-columns:1fr;}
+    .contact-inner{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .tl-item, .edu-item{grid-template-columns:1fr; gap:8px;}
+  }
+  @media (max-width: 560px){
+    .skills-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand">Karl Louie Tuazon<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow mono">// .net developer, cebu, philippines</p>
+      <h1>Backend systems and event-driven services, built on .NET.</h1>
+      <p class="lede">I'm Karl Louie Tuazon, a performance-driven software developer with a track record of building scalable web applications and RESTful APIs in Agile teams. My core stack is C#, ASP.NET Core, and SQL Server, paired with Angular on the frontend and Kafka for real-time, event-driven processing — all built around DDD and clean-code practices.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="section-num mono">01</span>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a performance-driven software developer with a proven track record of building scalable web applications and RESTful APIs within Agile environments. My backend work centers on C#, ASP.NET Core, and Microservices, following DDD, SOLID, and clean architecture practices — complemented by frontend work in Angular and TypeScript.</p>
+        <p>Recent projects have paired that backend focus with Apache Kafka for real-time, event-driven processing, and I lean on AI productivity tools where they genuinely improve system performance and maintainability. I write and maintain unit tests as part of the build, not as an afterthought, and work through Azure DevOps and Git-based workflows in Scrum teams.</p>
+      </div>
+      <ul class="fact-list">
+        <li><span class="k">Based in</span><span class="v">San Fernando, Cebu, PH</span></li>
+        <li><span class="k">Currently</span><span class="v">.NET Developer, Accenture</span></li>
+        <li><span class="k">Focus</span><span class="v">Backend, APIs &amp; Kafka</span></li>
+        <li><span class="k">Education</span><span class="v">B.I.T. Computer, CTU '23</span></li>
+        <li><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/karl-louie-tuazon-063035249" target="_blank" rel="noopener">/karl-louie-tuazon</a></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span class="section-num mono">02</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>Languages</h3>
+        <ul>
+          <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener">C#</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/dotnet/" target="_blank" rel="noopener">.NET / .NET Core</a></li>
+          <li><a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener">TypeScript</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener">JavaScript</a></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Backend &amp; Architecture</h3>
+        <ul>
+          <li><a href="https://learn.microsoft.com/en-us/aspnet/core/web-api/" target="_blank" rel="noopener">ASP.NET Core Web API</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/overview" target="_blank" rel="noopener">ASP.NET MVC</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/dotnet/architecture/microservices/" target="_blank" rel="noopener">Microservices</a></li>
+          <li><a href="https://kafka.apache.org/documentation/" target="_blank" rel="noopener">Kafka Integration</a></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Data &amp; Cloud</h3>
+        <ul>
+          <li><a href="https://learn.microsoft.com/en-us/sql/sql-server/" target="_blank" rel="noopener">SQL Server (MSSQL)</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/ef/core/" target="_blank" rel="noopener">Entity Framework Core</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/azure/devops/" target="_blank" rel="noopener">Azure DevOps</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/dotnet/core/testing/" target="_blank" rel="noopener">Unit Testing</a></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Frontend &amp; Tooling</h3>
+        <ul>
+          <li><a href="https://angular.dev/" target="_blank" rel="noopener">Angular</a></li>
+          <li><a href="https://react.dev/" target="_blank" rel="noopener">React (prior roles)</a></li>
+          <li><a href="https://git-scm.com/doc" target="_blank" rel="noopener">Git</a></li>
+          <li><a href="https://tailwindcss.com/docs" target="_blank" rel="noopener">Tailwind CSS</a></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>AI-Assisted Development</h3>
+        <ul>
+          <li><a href="https://docs.github.com/en/copilot" target="_blank" rel="noopener">GitHub Copilot</a></li>
+          <li><a href="https://docs.claude.com/" target="_blank" rel="noopener">Claude</a></li>
+          <li><a href="https://help.openai.com/en/" target="_blank" rel="noopener">ChatGPT</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <span class="section-num mono">03</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <span class="period mono">Jan 2026 —<br>Present</span>
+        <div>
+          <div class="tl-role">
+            <h3>.NET Developer</h3>
+            <span class="co">Accenture</span>
+          </div>
+          <ul class="duties">
+            <li>Develop and maintain backend services using .NET Core Web API and Microservices architecture.</li>
+            <li>Implement scalable solutions following DDD, SOLID principles, and clean architecture.</li>
+            <li>Enhance frontend functionality and UI fixes using Angular and TypeScript.</li>
+            <li>Integrate Apache Kafka for real-time messaging and distributed processing.</li>
+            <li>Create and maintain unit tests to ensure application reliability and code quality.</li>
+            <li>Collaborate within Agile Scrum teams using Azure DevOps and Git-based workflows.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">.NET Core</span><span class="tag">Microservices</span><span class="tag">Angular</span><span class="tag">Kafka</span><span class="tag">Azure DevOps</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <span class="period mono">Nov 2024 —<br>Jan 2026</span>
+        <div>
+          <div class="tl-role">
+            <h3>Software Engineer</h3>
+            <span class="co">New York Global Consultant Inc. (NYGCI)</span>
+          </div>
+          <ul class="duties">
+            <li>Built backend APIs and microservices using .NET Core.</li>
+            <li>Worked on Angular frontend enhancements and bug fixes.</li>
+            <li>Created EventHandlers for Kafka event-driven processing.</li>
+            <li>Participated in sprint planning, code reviews, testing, and deployment.</li>
+            <li>Maintained a clean, reusable, and scalable codebase.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">.NET Core</span><span class="tag">Kafka</span><span class="tag">Angular</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <span class="period mono">Jul 2021 —<br>Sep 2024</span>
+        <div>
+          <div class="tl-role">
+            <h3>Software Developer</h3>
+            <span class="co">Southside IT Solutions</span>
+          </div>
+          <ul class="duties">
+            <li>Developed desktop applications using C#, Windows Forms, and WPF.</li>
+            <li>Built ASP.NET MVC web applications with Entity Framework and SQL Server.</li>
+            <li>Developed responsive frontend interfaces using React and Tailwind CSS.</li>
+            <li>Managed databases and version control using SQL Server, Git, and GitHub.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">C#</span><span class="tag">WPF</span><span class="tag">ASP.NET MVC</span><span class="tag">React</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <span class="period mono">May 2022 —<br>Sep 2023<br><span style="font-size:0.72rem;">(concurrent)</span></span>
+        <div>
+          <div class="tl-role">
+            <h3>Web Developer</h3>
+            <span class="co">Freelance</span>
+          </div>
+          <ul class="duties">
+            <li>Designed and developed custom web applications for local clients.</li>
+            <li>Implemented backend functionality using .NET MVC, PHP, and MSSQL, MySQL, SQLite.</li>
+            <li>Built responsive frontend interfaces using HTML, CSS, JavaScript, TypeScript, and Angular.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">.NET MVC</span><span class="tag">PHP</span><span class="tag">Angular</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected projects</h2>
+      <span class="section-num mono">04</span>
+    </div>
+    <div class="project-grid">
+      <div class="project-card reveal">
+        <span class="p-num">01</span>
+        <h3>Real-Time Inventory &amp; Order Notification Dashboard</h3>
+        <p>A B2B dashboard where warehouse managers track inventory levels, manage stock, and get instant desktop alerts when an item drops below a critical threshold or a new high-priority order comes in.</p>
+        <p class="stack-line"><b>Frontend:</b> Angular, Tailwind CSS, RxJS, standalone components</p>
+        <p class="stack-line"><b>Backend:</b> .NET Web API, EF Core · <b>DB:</b> SQL Server</p>
+        <div class="tag-row">
+          <span class="tag">Angular</span><span class="tag">RxJS</span><span class="tag">.NET Web API</span><span class="tag">SQL Server</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <span class="p-num">02</span>
+        <h3>Enterprise POS &amp; Automated Inventory-Accounting Suite</h3>
+        <p>A retail management system that processes customer checkouts, updates stock across multiple locations, and syncs every transaction with a double-entry accounting ledger to generate real-time profit/loss sheets.</p>
+        <p class="stack-line"><b>Frontend:</b> Angular, Angular Material, NgRx</p>
+        <p class="stack-line"><b>Backend:</b> .NET Web API, MediatR · <b>DB:</b> SQL Server, EF Core</p>
+        <div class="tag-row">
+          <span class="tag">Angular</span><span class="tag">NgRx</span><span class="tag">MediatR</span><span class="tag">SQL Server</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education</h2>
+      <span class="section-num mono">05</span>
+    </div>
+    <div class="edu-item reveal">
+      <span class="period mono">2023</span>
+      <div>
+        <h3>Cebu Technological University</h3>
+        <p>Bachelor of Industrial Technology, major in Computer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-inner">
+    <div>
+      <h2>Let's work together.</h2>
+      <p>Open to backend and full-stack .NET roles, or a conversation about a system you're trying to untangle. Reach out through either of these.</p>
+    </div>
+    <ul class="contact-list">
+      <li><a href="mailto:karllouieflorestuazon@gmail.com">Email <span class="arrow mono">→</span></a></li>
+      <li><a href="https://www.linkedin.com/in/karl-louie-tuazon-063035249" target="_blank" rel="noopener">LinkedIn <span class="arrow mono">→</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:8px;">
+    <span>© 2026 Karl Louie Tuazon</span>
+    <span class="mono">San Fernando, Cebu, Philippines</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Nav shadow on scroll
+    var nav = document.querySelector('nav');
+    var onScroll = function(){
+      if(window.scrollY > 8){ nav.classList.add('is-scrolled'); }
+      else{ nav.classList.remove('is-scrolled'); }
+    };
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // Staggered reveal-on-scroll, grouped by parent container
+    document.querySelectorAll('.reveal').forEach(function(el){
+      if(!el.parentElement.__revealList){
+        el.parentElement.__revealList = [];
+      }
+      el.parentElement.__revealList.push(el);
+    });
+
+    if(prefersReduced || !('IntersectionObserver' in window)){
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
+    } else {
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var el = entry.target;
+            var siblings = el.parentElement.__revealList || [el];
+            var index = siblings.indexOf(el);
+            el.style.transitionDelay = (Math.max(index,0) * 90) + 'ms';
+            el.classList.add('is-visible');
+            observer.unobserve(el);
+          }
+        });
+      }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+
+      document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+    }
+  })();
+</script>
+</body>
+</html>
